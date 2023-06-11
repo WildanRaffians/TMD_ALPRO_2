@@ -1,23 +1,15 @@
+/*
+Saya Wildan Hafizh Raffianshar [2202301] mengerjakan evaluasi Tugas Masa Depan dalam mata kuliah 
+Algoritma dan Pemrograman II untuk keberkahanNya maka saya tidak
+melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
+*/
+
 #include <stdio.h>
 #include <string.h>
-
-
-// deklarasi tipe bungkusan mahasiswa
-// typedef struct{//bungkusan untuk data list merk
-//     char id_merek[100];
-//     char nama_merek[100];
-// } dataMerek;
-
-// typedef struct{//bungkusan untuk data list merk
-//     char id_kategori[100];
-//     char nama_kategori[100];
-// } dataKategori;
 
 typedef struct{//bungkusan untuk data list barang
     char id_barang[100];
     char nama_barang[100];
-    // char id_kategori[100];
-    // char id_merk[100];
 } dataBarang;
 
 typedef struct{//bungkusan untuk data list merk
@@ -62,6 +54,8 @@ int getlen();
 char *getcw();
 int getidx();
 
+int cwlen(char str[]);
+
 void readFile_ListBarang(int *n, dataBarang source[], char filename[], int lihat);
 void readFile_ListPelanggan(int *n, dataPelanggan source[], char filename[], int lihat);
 
@@ -72,6 +66,3 @@ void lihat(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangg
 void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], int q_ubah);
 void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], int q_tambah);
 void hapus(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100]);
-// int cekMonoQuery(char tape[500]);
-// int cekDuoQuery(char tape[500]);
-
