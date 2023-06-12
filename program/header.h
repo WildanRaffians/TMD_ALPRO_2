@@ -12,12 +12,12 @@ typedef struct{//bungkusan untuk data list barang
     char nama_barang[100];
 } dataBarang;
 
-typedef struct{//bungkusan untuk data list merk
+typedef struct{//bungkusan untuk data list pelanggan
     char id_pelanggan[100];
     char nama_pelanggan[100];
 } dataPelanggan;
 
-typedef struct{//bungkusan untuk data list barang
+typedef struct{//bungkusan untuk data list transaksi
     char id_transaksi[100];
     char id_pelanggan[100];
     char id_barang[100];
@@ -26,9 +26,11 @@ typedef struct{//bungkusan untuk data list barang
 } dataTransaksi;
 
 
+//menampilkan error
 void error1();
 void error2();
-void errortest();
+void error3();
+void error4();
 
 
 // deklarasi variabel global
@@ -54,15 +56,31 @@ int getlen();
 char *getcw();
 int getidx();
 
+
+//bagian menghitung panjang string
 int cwlen(char str[]);
 
+
+//bagian membaca file
 void readFile_ListBarang(int *n, dataBarang source[], char filename[], int lihat);
 void readFile_ListPelanggan(int *n, dataPelanggan source[], char filename[], int lihat);
+void readFile_ListTransaksi(int *n, dataTransaksi source[], char filename[], int lihat);
 
+
+//bagian menulis file
 void writeToFile_ListBarang(int n, dataBarang source[], char filename[]);
 void writeToFile_ListPelanggan(int n, dataPelanggan source[], char filename[]);
+void writeToFile_ListTransaksi(int n, dataTransaksi source[], char filename[]);
 
-void lihat(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], int q_lainnya);
-void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], int q_ubah);
-void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], int q_tambah);
-void hapus(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100]);
+
+//bagian perintah query
+void lihat(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100], int q_lainnya);
+void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100], int q_ubah);
+void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100], int q_tambah);
+void hapus(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100]);
+
+
+
+void joinTransaksiPelanggan(dataTransaksi listTransaksi[100], dataPelanggan listPelanggan[100]);
+void joinTransaksiBarang(dataTransaksi listTransaksi[100], dataBarang listBarang[100]);
+void joinTransaksiPelangganBarang(dataTransaksi listTransaksi[100], dataPelanggan listPelanggan[100], dataBarang listBarang[100]);

@@ -23,8 +23,8 @@ int main(){
     dataTransaksi listTransaksi[100];  //penampung data transaksi
 
     //tampilan awal
-    printf("\nSelamat Datang di DBMS UMKM Wildan\n");
-    printf("Versi : 0.5 (beta)\n");
+    printf("\nSelamat Datang di DBMS UMKM Pakaian Raffians\n");
+    printf("Versi : 0.8 (beta)\n");
 
     //proses/system berlangsung selama 'tutup' bernilai nol
     while( tutup == 0){
@@ -47,7 +47,7 @@ int main(){
 
         //meminta masukan user
         printf("\n");
-        printf("dbms Wildan> ");   
+        printf("dbms Raffians> ");   
         scanf(" %499[^\n]s", &masukan[baris]);
 
         akhiran = cwlen(masukan[baris])-1;//menampung index terakhir pada masukan
@@ -106,22 +106,22 @@ int main(){
             //jika masukan perintah 'lihat'
             if((strcmp(getcw(), "lihat") == 0) || (strcmp(getcw(), "LIHAT") == 0) ||(strcmp(getcw(), "Lihat") == 0)){
                 //jalankan prosedur lihat
-                lihat(tape, listBarang, listPelanggan, 0);
+                lihat(tape, listBarang, listPelanggan, listTransaksi, 0);
             }
             //jika masukan perintah 'tambah'
             else if((strcmp(getcw(), "tambah") == 0) || (strcmp(getcw(), "TAMBAH") == 0) ||(strcmp(getcw(), "Tambah") == 0)){
                 //jika masukan perintah 'tambah'                
-                tambah(tape, listBarang, listPelanggan, 0);
+                tambah(tape, listBarang, listPelanggan, listTransaksi, 0);
             }
             //jika masukan perintah 'ubah'
             else if((strcmp(getcw(), "ubah") == 0) || (strcmp(getcw(), "UBAH") == 0) ||(strcmp(getcw(), "Ubah") == 0)){
                 //jika masukan perintah 'ubah'                
-                ubah(tape, listBarang, listPelanggan, 0);
+                ubah(tape, listBarang, listPelanggan, listTransaksi, 0);
             }
             //jika masukan perintah 'hapus'
             else if((strcmp(getcw(), "hapus") == 0) || (strcmp(getcw(), "HAPUS") == 0) ||(strcmp(getcw(), "Hapus") == 0)){
                 //jika masukan perintah 'hapus'
-               hapus(tape, listBarang, listPelanggan);
+               hapus(tape, listBarang, listPelanggan, listTransaksi);
             }
             //jika masukan lain
             else{
