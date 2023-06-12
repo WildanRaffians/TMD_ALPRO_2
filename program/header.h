@@ -34,11 +34,10 @@ void error4();
 
 
 // deklarasi variabel global
-extern int idx;     // index dari karakter terakhir pada kata
-extern int temp_idx;     // index dari karakter terakhir pada kata
-extern int wlen;    // panjang kata (word length)
-extern char cw[50]; // kata saat ini (current word)
-extern char temp_cw[50]; // kata saat ini (current word)
+extern int idx;          // index dari karakter terakhir pada kata
+extern int temp_idx;     // penampung sementara index dari karakter terakhir pada kata
+extern int wlen;         // panjang kata (word length)
+extern char cw[50];      // kata saat ini (current word)
 
 
 // bagian untuk memulai, mereset, dan mengakhiri mesin kata
@@ -80,7 +79,7 @@ void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangga
 void hapus(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100]);
 
 
-
+//bagian perintah query join
 void joinTransaksiPelanggan(dataTransaksi listTransaksi[100], dataPelanggan listPelanggan[100]);
 void joinTransaksiBarang(dataTransaksi listTransaksi[100], dataBarang listBarang[100]);
 void joinTransaksiPelangganBarang(dataTransaksi listTransaksi[100], dataPelanggan listPelanggan[100], dataBarang listBarang[100]);

@@ -4,14 +4,13 @@ Algoritma dan Pemrograman II untuk keberkahanNya maka saya tidak
 melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
 */
 
-#include "header.h"
+#include "header.h"//deklarasi header file
 
 int idx;
 int temp_idx;
 int wlen;
 char cw[50];
-char temp_cw[50];
-dataTransaksi listJoin[100];
+dataTransaksi listJoin[100]; //penampung data join
 
 void test(){
     printf("test\n");
@@ -516,9 +515,349 @@ void readFile_ListTransaksi(int *n, dataTransaksi source[], char filename[], int
     }
 
     if(lihat == 1){
-        for(int i = 0; i <*n; i++){
-            printf("%s %s %s %s %s\n", source[i].id_transaksi, source[i].id_pelanggan, source[i].id_barang, source[i].waktu_transaksi, source[i].tanggal_transaksi);
+
+        //mencari tanggal_transaksi terpanjang
+        int terpanjang_id = 0;
+        for(int i = 0; i <*n; i++) {
+            if(cwlen(source[i].id_transaksi) > terpanjang_id){
+                terpanjang_id = cwlen(source[i].id_transaksi);
+            }
         }
+
+        int terpanjang_pelanggan = 0;
+        for(int i = 0; i <*n; i++) {
+            if(cwlen(source[i].id_pelanggan) > terpanjang_pelanggan){
+                terpanjang_pelanggan = cwlen(source[i].id_pelanggan);
+            }
+        }
+
+        int terpanjang_barang = 0;
+        for(int i = 0; i <*n; i++) {
+            if(cwlen(source[i].id_barang) > terpanjang_barang){
+                terpanjang_barang = cwlen(source[i].id_barang);
+            }
+        }
+
+        int terpanjang_waktu = 0;
+        for(int i = 0; i <*n; i++) {
+            if(cwlen(source[i].waktu_transaksi) > terpanjang_waktu){
+                terpanjang_waktu = cwlen(source[i].waktu_transaksi);
+            }
+        }
+
+        int terpanjang_tanggal = 0;
+        for(int i = 0; i <*n; i++) {
+            if(cwlen(source[i].tanggal_transaksi) > terpanjang_tanggal){
+                terpanjang_tanggal = cwlen(source[i].tanggal_transaksi);
+            }
+        }
+
+        //tabel
+        //header
+        //baris1
+        printf("%c", 218);
+        if(terpanjang_id <= 14){
+            for(int i = 0; i < 14 + 2 ; i++) {
+                printf("%c", 196);
+            }
+        } else{
+            for(int i = 0; i < terpanjang_id + 2 ; i++) {
+                printf("%c", 196);
+            }
+        }
+        printf("%c", 194);
+        if(terpanjang_pelanggan <= 14){
+            for(int i = 0; i < 14 + 2 ; i++) {
+                printf("%c", 196);
+            }
+        } else{
+            for(int i = 0; i < terpanjang_pelanggan + 2 ; i++) {
+                printf("%c", 196);
+            }
+        }
+        printf("%c", 194);
+        if(terpanjang_barang <= 11){
+            for(int i = 0; i < 11 + 2 ; i++) {
+                printf("%c", 196);
+            }
+        } else{
+            for(int i = 0; i < terpanjang_barang + 2 ; i++) {
+                printf("%c", 196);
+            }
+        }
+        printf("%c", 194);
+        if(terpanjang_waktu <= 5){
+            for(int i = 0; i < 5 + 2 ; i++) {
+                printf("%c", 196);
+            }
+        } else{
+            for(int i = 0; i < terpanjang_waktu + 2 ; i++) {
+                printf("%c", 196);
+            }
+        }
+        printf("%c", 194);
+        if(terpanjang_tanggal <= 7){
+            for(int i = 0; i < 7 + 2 ; i++) {
+                printf("%c", 196);
+            }
+        } else{
+            for(int i = 0; i < terpanjang_tanggal + 2 ; i++) {
+                printf("%c", 196);
+            }
+        }
+
+        printf("%c\n", 191);
+
+        //baris2
+        printf("%c", 179);
+
+        if(terpanjang_id > 14){
+            for(int i = 0; i < (terpanjang_id - 14)/2 ; i++) {
+                printf(" ");
+            }
+        }
+        printf(" Kode Transaksi ");
+        if(terpanjang_id > 14){
+            for(int i = 0; i < (terpanjang_id - 14)/2 ; i++) {
+                printf(" ");
+            }
+            if((((terpanjang_id - 14)%2) == 1) || terpanjang_id == 15){
+                printf(" ");
+            }
+        }
+
+        printf("%c", 179);
+        if(terpanjang_pelanggan > 14){
+            for(int i = 0; i < (terpanjang_pelanggan - 14)/2 ; i++) {
+                printf(" ");
+            }
+        }
+        printf(" Kode Pelanggan ");
+        if(terpanjang_pelanggan > 14){
+            for(int i = 0; i < (terpanjang_pelanggan - 14)/2 ; i++) {
+                printf(" ");
+            }
+            if((((terpanjang_pelanggan - 14)%2) == 1) || terpanjang_pelanggan == 15){
+                printf(" ");
+            }
+        }
+        
+        printf("%c", 179);
+        if(terpanjang_barang > 11){
+            for(int i = 0; i < (terpanjang_barang - 11)/2 ; i++) {
+                printf(" ");
+            }
+        }
+        printf(" Kode Barang ");
+        if(terpanjang_barang > 11){
+            for(int i = 0; i < (terpanjang_barang - 11)/2 ; i++) {
+                printf(" ");
+            }
+            if((((terpanjang_barang - 11)%2) == 1) || terpanjang_barang == 12){
+                printf(" ");
+            }
+        }
+        
+        printf("%c", 179);
+        if(terpanjang_waktu > 5){
+            for(int i = 0; i < (terpanjang_waktu - 5)/2 ; i++) {
+                printf(" ");
+            }
+        }
+        printf(" Waktu ");
+        if(terpanjang_waktu > 5){
+            for(int i = 0; i < (terpanjang_waktu - 5)/2 ; i++) {
+                printf(" ");
+            }
+            if((((terpanjang_waktu - 5)%2) == 1) || terpanjang_waktu == 6){
+                printf(" ");
+            }
+        }
+        
+        printf("%c", 179);
+        if(terpanjang_tanggal > 7){
+            for(int i = 0; i < (terpanjang_tanggal - 7)/2 ; i++) {
+                printf(" ");
+            }
+        }
+        printf(" Tanggal ");
+        if(terpanjang_tanggal > 7){
+            for(int i = 0; i < (terpanjang_tanggal - 7)/2 ; i++) {
+                printf(" ");
+            }
+            if((((terpanjang_tanggal - 7)%2) == 1) || terpanjang_tanggal == 8){
+                printf(" ");
+            }
+        }
+        printf("%c\n", 179);
+
+        //baris3
+        printf("%c", 195);
+        if(terpanjang_id <= 14){
+            for(int i = 0; i < 14 + 2 ; i++) {
+                printf("%c", 196);
+            }
+        } else{
+            for(int i = 0; i < terpanjang_id + 2 ; i++) {
+                printf("%c", 196);
+            }
+        }
+        printf("%c", 197);
+        if(terpanjang_pelanggan <= 14){
+            for(int i = 0; i < 14 + 2 ; i++) {
+                printf("%c", 196);
+            }
+        } else{
+            for(int i = 0; i < terpanjang_pelanggan + 2 ; i++) {
+                printf("%c", 196);
+            }
+        }
+        printf("%c", 197);
+        if(terpanjang_barang <= 11){
+            for(int i = 0; i < 11 + 2 ; i++) {
+                printf("%c", 196);
+            }
+        } else{
+            for(int i = 0; i < terpanjang_barang + 2 ; i++) {
+                printf("%c", 196);
+            }
+        }
+        printf("%c", 197);
+        if(terpanjang_waktu <= 5){
+            for(int i = 0; i < 5 + 2 ; i++) {
+                printf("%c", 196);
+            }
+        } else{
+            for(int i = 0; i < terpanjang_waktu + 2 ; i++) {
+                printf("%c", 196);
+            }
+        }
+        printf("%c", 197);
+        if(terpanjang_tanggal <= 7){
+            for(int i = 0; i < 7 + 2 ; i++) {
+                printf("%c", 196);
+            }
+        } else{
+            for(int i = 0; i < terpanjang_tanggal + 2 ; i++) {
+                printf("%c", 196);
+            }
+        }
+
+        printf("%c\n", 180);
+
+        //isi
+        for(int i = 0; i <*n; i++){
+            printf("%c", 179);
+            printf(" %s ", source[i].id_transaksi); 
+            if(terpanjang_id > 14){
+                for(int j = 0; j < terpanjang_id - cwlen(source[i].id_transaksi); j++){
+                    printf(" ");
+                }
+            } else{
+                for(int j = 0; j < 14 - cwlen(source[i].id_transaksi); j++){
+                    printf(" ");
+                }
+            }
+            printf("%c", 179);
+            printf(" %s ", source[i].id_pelanggan);
+            if(terpanjang_pelanggan > 14){
+                for(int j = 0; j < terpanjang_pelanggan - cwlen(source[i].id_pelanggan); j++){
+                    printf(" ");
+                }
+            } else{
+                for(int j = 0; j < 14 - cwlen(source[i].id_pelanggan); j++){
+                    printf(" ");
+                }
+            }
+            printf("%c", 179);
+            printf(" %s ", source[i].id_barang);
+            if(terpanjang_barang > 11){
+                for(int j = 0; j < terpanjang_barang - cwlen(source[i].id_barang); j++){
+                    printf(" ");
+                }
+            } else{
+                for(int j = 0; j < 11 - cwlen(source[i].id_barang); j++){
+                    printf(" ");
+                }
+            }
+            printf("%c", 179);
+            printf(" %s ", source[i].waktu_transaksi);
+            if(terpanjang_waktu > 5){
+                for(int j = 0; j < terpanjang_waktu - cwlen(source[i].waktu_transaksi); j++){
+                    printf(" ");
+                }
+            } else{
+                for(int j = 0; j < 5 - cwlen(source[i].waktu_transaksi); j++){
+                    printf(" ");
+                }
+            }
+            printf("%c", 179);
+            printf(" %s ", source[i].tanggal_transaksi);
+            if(terpanjang_tanggal > 7){
+                for(int j = 0; j < terpanjang_tanggal - cwlen(source[i].tanggal_transaksi); j++){
+                    printf(" ");
+                }
+            } else{
+                for(int j = 0; j < 7 - cwlen(source[i].tanggal_transaksi); j++){
+                    printf(" ");
+                }
+            }
+            printf("%c\n", 179);
+        }
+
+        // //bawah 192 193 217
+        printf("%c", 192);
+        if(terpanjang_id <= 14){
+            for(int i = 0; i < 14 + 2 ; i++) {
+                printf("%c", 196);
+            }
+        } else{
+            for(int i = 0; i < terpanjang_id + 2 ; i++) {
+                printf("%c", 196);
+            }
+        }
+        printf("%c", 193);
+        if(terpanjang_pelanggan <= 14){
+            for(int i = 0; i < 14 + 2 ; i++) {
+                printf("%c", 196);
+            }
+        } else{
+            for(int i = 0; i < terpanjang_pelanggan + 2 ; i++) {
+                printf("%c", 196);
+            }
+        }
+        printf("%c", 193);
+        if(terpanjang_barang <= 11){
+            for(int i = 0; i < 11 + 2 ; i++) {
+                printf("%c", 196);
+            }
+        } else{
+            for(int i = 0; i < terpanjang_barang + 2 ; i++) {
+                printf("%c", 196);
+            }
+        }
+        printf("%c", 193);
+        if(terpanjang_waktu <= 5){
+            for(int i = 0; i < 5 + 2 ; i++) {
+                printf("%c", 196);
+            }
+        } else{
+            for(int i = 0; i < terpanjang_waktu + 2 ; i++) {
+                printf("%c", 196);
+            }
+        }
+        printf("%c", 193);
+        if(terpanjang_tanggal <= 7){
+            for(int i = 0; i < 7 + 2 ; i++) {
+                printf("%c", 196);
+            }
+        } else{
+            for(int i = 0; i < terpanjang_tanggal + 2 ; i++) {
+                printf("%c", 196);
+            }
+        }
+
+        printf("%c\n", 217);
     }
 }
 
@@ -2258,10 +2597,350 @@ void joinTransaksiPelanggan(dataTransaksi listTransaksi[100], dataPelanggan list
         strcpy(listJoin[i].id_barang, listTransaksi[i].id_barang);
         strcpy(listJoin[i].waktu_transaksi, listTransaksi[i].waktu_transaksi);
         strcpy(listJoin[i].tanggal_transaksi, listTransaksi[i].tanggal_transaksi);
-
-        printf("%s %s %s %s %s \n", listJoin[i].id_transaksi, listJoin[i].id_pelanggan, listJoin[i].id_barang, listJoin[i].waktu_transaksi, listJoin[i].tanggal_transaksi);
-
     }
+
+    //mencari tanggal_transaksi terpanjang
+    int terpanjang_id = 0;
+    for(int i = 0; i <s; i++) {
+        if(cwlen(listJoin[i].id_transaksi) > terpanjang_id){
+            terpanjang_id = cwlen(listJoin[i].id_transaksi);
+        }
+    }
+
+    int terpanjang_pelanggan = 0;
+    for(int i = 0; i <s; i++) {
+        if(cwlen(listJoin[i].id_pelanggan) > terpanjang_pelanggan){
+            terpanjang_pelanggan = cwlen(listJoin[i].id_pelanggan);
+        }
+    }
+
+    int terpanjang_barang = 0;
+    for(int i = 0; i <s; i++) {
+        if(cwlen(listJoin[i].id_barang) > terpanjang_barang){
+            terpanjang_barang = cwlen(listJoin[i].id_barang);
+        }
+    }
+
+    int terpanjang_waktu = 0;
+    for(int i = 0; i <s; i++) {
+        if(cwlen(listJoin[i].waktu_transaksi) > terpanjang_waktu){
+            terpanjang_waktu = cwlen(listJoin[i].waktu_transaksi);
+        }
+    }
+
+    int terpanjang_tanggal = 0;
+    for(int i = 0; i <s; i++) {
+        if(cwlen(listJoin[i].tanggal_transaksi) > terpanjang_tanggal){
+            terpanjang_tanggal = cwlen(listJoin[i].tanggal_transaksi);
+        }
+    }
+
+    //tabel
+    //header
+    //baris1
+    printf("%c", 218);
+    if(terpanjang_id <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_id + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 194);
+    if(terpanjang_pelanggan <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_pelanggan + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 194);
+    if(terpanjang_barang <= 11){
+        for(int i = 0; i < 11 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_barang + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 194);
+    if(terpanjang_waktu <= 5){
+        for(int i = 0; i < 5 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_waktu + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 194);
+    if(terpanjang_tanggal <= 7){
+        for(int i = 0; i < 7 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_tanggal + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+
+    printf("%c\n", 191);
+
+    //baris2
+    printf("%c", 179);
+
+    if(terpanjang_id > 14){
+        for(int i = 0; i < (terpanjang_id - 14)/2 ; i++) {
+            printf(" ");
+        }
+    }
+    printf(" Kode Transaksi ");
+    if(terpanjang_id > 14){
+        for(int i = 0; i < (terpanjang_id - 14)/2 ; i++) {
+            printf(" ");
+        }
+        if((((terpanjang_id - 14)%2) == 1) || terpanjang_id == 15){
+            printf(" ");
+        }
+    }
+
+    printf("%c", 179);
+    if(terpanjang_pelanggan > 14){
+        for(int i = 0; i < (terpanjang_pelanggan - 14)/2 ; i++) {
+            printf(" ");
+        }
+    }
+    printf(" Nama Pelanggan ");
+    if(terpanjang_pelanggan > 14){
+        for(int i = 0; i < (terpanjang_pelanggan - 14)/2 ; i++) {
+            printf(" ");
+        }
+        if((((terpanjang_pelanggan - 14)%2) == 1) || terpanjang_pelanggan == 15){
+            printf(" ");
+        }
+    }
+    
+    printf("%c", 179);
+    if(terpanjang_barang > 11){
+        for(int i = 0; i < (terpanjang_barang - 11)/2 ; i++) {
+            printf(" ");
+        }
+    }
+    printf(" Kode Barang ");
+    if(terpanjang_barang > 11){
+        for(int i = 0; i < (terpanjang_barang - 11)/2 ; i++) {
+            printf(" ");
+        }
+        if((((terpanjang_barang - 11)%2) == 1) || terpanjang_barang == 12){
+            printf(" ");
+        }
+    }
+    
+    printf("%c", 179);
+    if(terpanjang_waktu > 5){
+        for(int i = 0; i < (terpanjang_waktu - 5)/2 ; i++) {
+            printf(" ");
+        }
+    }
+    printf(" Waktu ");
+    if(terpanjang_waktu > 5){
+        for(int i = 0; i < (terpanjang_waktu - 5)/2 ; i++) {
+            printf(" ");
+        }
+        if((((terpanjang_waktu - 5)%2) == 1) || terpanjang_waktu == 6){
+            printf(" ");
+        }
+    }
+    
+    printf("%c", 179);
+    if(terpanjang_tanggal > 7){
+        for(int i = 0; i < (terpanjang_tanggal - 7)/2 ; i++) {
+            printf(" ");
+        }
+    }
+    printf(" Tanggal ");
+    if(terpanjang_tanggal > 7){
+        for(int i = 0; i < (terpanjang_tanggal - 7)/2 ; i++) {
+            printf(" ");
+        }
+        if((((terpanjang_tanggal - 7)%2) == 1) || terpanjang_tanggal == 8){
+            printf(" ");
+        }
+    }
+    printf("%c\n", 179);
+
+    //baris3
+    printf("%c", 195);
+    if(terpanjang_id <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_id + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 197);
+    if(terpanjang_pelanggan <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_pelanggan + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 197);
+    if(terpanjang_barang <= 11){
+        for(int i = 0; i < 11 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_barang + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 197);
+    if(terpanjang_waktu <= 5){
+        for(int i = 0; i < 5 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_waktu + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 197);
+    if(terpanjang_tanggal <= 7){
+        for(int i = 0; i < 7 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_tanggal + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+
+    printf("%c\n", 180);
+
+    //isi
+    for(int i = 0; i <s; i++){
+        printf("%c", 179);
+        printf(" %s ", listJoin[i].id_transaksi); 
+        if(terpanjang_id > 14){
+            for(int j = 0; j < terpanjang_id - cwlen(listJoin[i].id_transaksi); j++){
+                printf(" ");
+            }
+        } else{
+            for(int j = 0; j < 14 - cwlen(listJoin[i].id_transaksi); j++){
+                printf(" ");
+            }
+        }
+        printf("%c", 179);
+        printf(" %s ", listJoin[i].id_pelanggan);
+        if(terpanjang_pelanggan > 14){
+            for(int j = 0; j < terpanjang_pelanggan - cwlen(listJoin[i].id_pelanggan); j++){
+                printf(" ");
+            }
+        } else{
+            for(int j = 0; j < 14 - cwlen(listJoin[i].id_pelanggan); j++){
+                printf(" ");
+            }
+        }
+        printf("%c", 179);
+        printf(" %s ", listJoin[i].id_barang);
+        if(terpanjang_barang > 11){
+            for(int j = 0; j < terpanjang_barang - cwlen(listJoin[i].id_barang); j++){
+                printf(" ");
+            }
+        } else{
+            for(int j = 0; j < 11 - cwlen(listJoin[i].id_barang); j++){
+                printf(" ");
+            }
+        }
+        printf("%c", 179);
+        printf(" %s ", listJoin[i].waktu_transaksi);
+        if(terpanjang_waktu > 5){
+            for(int j = 0; j < terpanjang_waktu - cwlen(listJoin[i].waktu_transaksi); j++){
+                printf(" ");
+            }
+        } else{
+            for(int j = 0; j < 5 - cwlen(listJoin[i].waktu_transaksi); j++){
+                printf(" ");
+            }
+        }
+        printf("%c", 179);
+        printf(" %s ", listJoin[i].tanggal_transaksi);
+        if(terpanjang_tanggal > 7){
+            for(int j = 0; j < terpanjang_tanggal - cwlen(listJoin[i].tanggal_transaksi); j++){
+                printf(" ");
+            }
+        } else{
+            for(int j = 0; j < 7 - cwlen(listJoin[i].tanggal_transaksi); j++){
+                printf(" ");
+            }
+        }
+        printf("%c\n", 179);
+    }
+
+    // //bawah 192 193 217
+    printf("%c", 192);
+    if(terpanjang_id <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_id + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 193);
+    if(terpanjang_pelanggan <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_pelanggan + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 193);
+    if(terpanjang_barang <= 11){
+        for(int i = 0; i < 11 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_barang + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 193);
+    if(terpanjang_waktu <= 5){
+        for(int i = 0; i < 5 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_waktu + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 193);
+    if(terpanjang_tanggal <= 7){
+        for(int i = 0; i < 7 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_tanggal + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+
+    printf("%c\n", 217);
 
 }
 
@@ -2290,10 +2969,349 @@ void joinTransaksiBarang(dataTransaksi listTransaksi[100], dataBarang listBarang
 
         strcpy(listJoin[i].waktu_transaksi, listTransaksi[i].waktu_transaksi);
         strcpy(listJoin[i].tanggal_transaksi, listTransaksi[i].tanggal_transaksi);
-
-        printf("%s %s %s %s %s \n", listJoin[i].id_transaksi, listJoin[i].id_pelanggan, listJoin[i].id_barang, listJoin[i].waktu_transaksi, listJoin[i].tanggal_transaksi);
-
     }
+
+    int terpanjang_id = 0;
+    for(int i = 0; i <s; i++) {
+        if(cwlen(listJoin[i].id_transaksi) > terpanjang_id){
+            terpanjang_id = cwlen(listJoin[i].id_transaksi);
+        }
+    }
+
+    int terpanjang_pelanggan = 0;
+    for(int i = 0; i <s; i++) {
+        if(cwlen(listJoin[i].id_pelanggan) > terpanjang_pelanggan){
+            terpanjang_pelanggan = cwlen(listJoin[i].id_pelanggan);
+        }
+    }
+
+    int terpanjang_barang = 0;
+    for(int i = 0; i <s; i++) {
+        if(cwlen(listJoin[i].id_barang) > terpanjang_barang){
+            terpanjang_barang = cwlen(listJoin[i].id_barang);
+        }
+    }
+
+    int terpanjang_waktu = 0;
+    for(int i = 0; i <s; i++) {
+        if(cwlen(listJoin[i].waktu_transaksi) > terpanjang_waktu){
+            terpanjang_waktu = cwlen(listJoin[i].waktu_transaksi);
+        }
+    }
+
+    int terpanjang_tanggal = 0;
+    for(int i = 0; i <s; i++) {
+        if(cwlen(listJoin[i].tanggal_transaksi) > terpanjang_tanggal){
+            terpanjang_tanggal = cwlen(listJoin[i].tanggal_transaksi);
+        }
+    }
+
+    //tabel
+    //header
+    //baris1
+    printf("%c", 218);
+    if(terpanjang_id <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_id + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 194);
+    if(terpanjang_pelanggan <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_pelanggan + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 194);
+    if(terpanjang_barang <= 11){
+        for(int i = 0; i < 11 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_barang + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 194);
+    if(terpanjang_waktu <= 5){
+        for(int i = 0; i < 5 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_waktu + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 194);
+    if(terpanjang_tanggal <= 7){
+        for(int i = 0; i < 7 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_tanggal + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+
+    printf("%c\n", 191);
+
+    //baris2
+    printf("%c", 179);
+
+    if(terpanjang_id > 14){
+        for(int i = 0; i < (terpanjang_id - 14)/2 ; i++) {
+            printf(" ");
+        }
+    }
+    printf(" Kode Transaksi ");
+    if(terpanjang_id > 14){
+        for(int i = 0; i < (terpanjang_id - 14)/2 ; i++) {
+            printf(" ");
+        }
+        if((((terpanjang_id - 14)%2) == 1) || terpanjang_id == 15){
+            printf(" ");
+        }
+    }
+
+    printf("%c", 179);
+    if(terpanjang_pelanggan > 14){
+        for(int i = 0; i < (terpanjang_pelanggan - 14)/2 ; i++) {
+            printf(" ");
+        }
+    }
+    printf(" Kode Pelanggan ");
+    if(terpanjang_pelanggan > 14){
+        for(int i = 0; i < (terpanjang_pelanggan - 14)/2 ; i++) {
+            printf(" ");
+        }
+        if((((terpanjang_pelanggan - 14)%2) == 1) || terpanjang_pelanggan == 15){
+            printf(" ");
+        }
+    }
+    
+    printf("%c", 179);
+    if(terpanjang_barang > 11){
+        for(int i = 0; i < (terpanjang_barang - 11)/2 ; i++) {
+            printf(" ");
+        }
+    }
+    printf(" Nama Barang ");
+    if(terpanjang_barang > 11){
+        for(int i = 0; i < (terpanjang_barang - 11)/2 ; i++) {
+            printf(" ");
+        }
+        if((((terpanjang_barang - 11)%2) == 1) || terpanjang_barang == 12){
+            printf(" ");
+        }
+    }
+    
+    printf("%c", 179);
+    if(terpanjang_waktu > 5){
+        for(int i = 0; i < (terpanjang_waktu - 5)/2 ; i++) {
+            printf(" ");
+        }
+    }
+    printf(" Waktu ");
+    if(terpanjang_waktu > 5){
+        for(int i = 0; i < (terpanjang_waktu - 5)/2 ; i++) {
+            printf(" ");
+        }
+        if((((terpanjang_waktu - 5)%2) == 1) || terpanjang_waktu == 6){
+            printf(" ");
+        }
+    }
+    
+    printf("%c", 179);
+    if(terpanjang_tanggal > 7){
+        for(int i = 0; i < (terpanjang_tanggal - 7)/2 ; i++) {
+            printf(" ");
+        }
+    }
+    printf(" Tanggal ");
+    if(terpanjang_tanggal > 7){
+        for(int i = 0; i < (terpanjang_tanggal - 7)/2 ; i++) {
+            printf(" ");
+        }
+        if((((terpanjang_tanggal - 7)%2) == 1) || terpanjang_tanggal == 8){
+            printf(" ");
+        }
+    }
+    printf("%c\n", 179);
+
+    //baris3
+    printf("%c", 195);
+    if(terpanjang_id <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_id + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 197);
+    if(terpanjang_pelanggan <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_pelanggan + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 197);
+    if(terpanjang_barang <= 11){
+        for(int i = 0; i < 11 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_barang + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 197);
+    if(terpanjang_waktu <= 5){
+        for(int i = 0; i < 5 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_waktu + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 197);
+    if(terpanjang_tanggal <= 7){
+        for(int i = 0; i < 7 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_tanggal + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+
+    printf("%c\n", 180);
+
+    //isi
+    for(int i = 0; i <s; i++){
+        printf("%c", 179);
+        printf(" %s ", listJoin[i].id_transaksi); 
+        if(terpanjang_id > 14){
+            for(int j = 0; j < terpanjang_id - cwlen(listJoin[i].id_transaksi); j++){
+                printf(" ");
+            }
+        } else{
+            for(int j = 0; j < 14 - cwlen(listJoin[i].id_transaksi); j++){
+                printf(" ");
+            }
+        }
+        printf("%c", 179);
+        printf(" %s ", listJoin[i].id_pelanggan);
+        if(terpanjang_pelanggan > 14){
+            for(int j = 0; j < terpanjang_pelanggan - cwlen(listJoin[i].id_pelanggan); j++){
+                printf(" ");
+            }
+        } else{
+            for(int j = 0; j < 14 - cwlen(listJoin[i].id_pelanggan); j++){
+                printf(" ");
+            }
+        }
+        printf("%c", 179);
+        printf(" %s ", listJoin[i].id_barang);
+        if(terpanjang_barang > 11){
+            for(int j = 0; j < terpanjang_barang - cwlen(listJoin[i].id_barang); j++){
+                printf(" ");
+            }
+        } else{
+            for(int j = 0; j < 11 - cwlen(listJoin[i].id_barang); j++){
+                printf(" ");
+            }
+        }
+        printf("%c", 179);
+        printf(" %s ", listJoin[i].waktu_transaksi);
+        if(terpanjang_waktu > 5){
+            for(int j = 0; j < terpanjang_waktu - cwlen(listJoin[i].waktu_transaksi); j++){
+                printf(" ");
+            }
+        } else{
+            for(int j = 0; j < 5 - cwlen(listJoin[i].waktu_transaksi); j++){
+                printf(" ");
+            }
+        }
+        printf("%c", 179);
+        printf(" %s ", listJoin[i].tanggal_transaksi);
+        if(terpanjang_tanggal > 7){
+            for(int j = 0; j < terpanjang_tanggal - cwlen(listJoin[i].tanggal_transaksi); j++){
+                printf(" ");
+            }
+        } else{
+            for(int j = 0; j < 7 - cwlen(listJoin[i].tanggal_transaksi); j++){
+                printf(" ");
+            }
+        }
+        printf("%c\n", 179);
+    }
+
+    // //bawah 192 193 217
+    printf("%c", 192);
+    if(terpanjang_id <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_id + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 193);
+    if(terpanjang_pelanggan <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_pelanggan + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 193);
+    if(terpanjang_barang <= 11){
+        for(int i = 0; i < 11 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_barang + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 193);
+    if(terpanjang_waktu <= 5){
+        for(int i = 0; i < 5 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_waktu + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 193);
+    if(terpanjang_tanggal <= 7){
+        for(int i = 0; i < 7 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_tanggal + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+
+    printf("%c\n", 217);
 }
 
 
@@ -2328,9 +3346,348 @@ void joinTransaksiPelangganBarang(dataTransaksi listTransaksi[100], dataPelangga
         
         strcpy(listJoin[i].waktu_transaksi, listTransaksi[i].waktu_transaksi);
         strcpy(listJoin[i].tanggal_transaksi, listTransaksi[i].tanggal_transaksi);
-
-        printf("%s %s %s %s %s \n", listJoin[i].id_transaksi, listJoin[i].id_pelanggan, listJoin[i].id_barang, listJoin[i].waktu_transaksi, listJoin[i].tanggal_transaksi);
-
     }
+
+    int terpanjang_id = 0;
+    for(int i = 0; i <s; i++) {
+        if(cwlen(listJoin[i].id_transaksi) > terpanjang_id){
+            terpanjang_id = cwlen(listJoin[i].id_transaksi);
+        }
+    }
+
+    int terpanjang_pelanggan = 0;
+    for(int i = 0; i <s; i++) {
+        if(cwlen(listJoin[i].id_pelanggan) > terpanjang_pelanggan){
+            terpanjang_pelanggan = cwlen(listJoin[i].id_pelanggan);
+        }
+    }
+
+    int terpanjang_barang = 0;
+    for(int i = 0; i <s; i++) {
+        if(cwlen(listJoin[i].id_barang) > terpanjang_barang){
+            terpanjang_barang = cwlen(listJoin[i].id_barang);
+        }
+    }
+
+    int terpanjang_waktu = 0;
+    for(int i = 0; i <s; i++) {
+        if(cwlen(listJoin[i].waktu_transaksi) > terpanjang_waktu){
+            terpanjang_waktu = cwlen(listJoin[i].waktu_transaksi);
+        }
+    }
+
+    int terpanjang_tanggal = 0;
+    for(int i = 0; i <s; i++) {
+        if(cwlen(listJoin[i].tanggal_transaksi) > terpanjang_tanggal){
+            terpanjang_tanggal = cwlen(listJoin[i].tanggal_transaksi);
+        }
+    }
+
+    //tabel
+    //header
+    //baris1
+    printf("%c", 218);
+    if(terpanjang_id <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_id + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 194);
+    if(terpanjang_pelanggan <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_pelanggan + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 194);
+    if(terpanjang_barang <= 11){
+        for(int i = 0; i < 11 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_barang + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 194);
+    if(terpanjang_waktu <= 5){
+        for(int i = 0; i < 5 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_waktu + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 194);
+    if(terpanjang_tanggal <= 7){
+        for(int i = 0; i < 7 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_tanggal + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+
+    printf("%c\n", 191);
+
+    //baris2
+    printf("%c", 179);
+
+    if(terpanjang_id > 14){
+        for(int i = 0; i < (terpanjang_id - 14)/2 ; i++) {
+            printf(" ");
+        }
+    }
+    printf(" Kode Transaksi ");
+    if(terpanjang_id > 14){
+        for(int i = 0; i < (terpanjang_id - 14)/2 ; i++) {
+            printf(" ");
+        }
+        if((((terpanjang_id - 14)%2) == 1) || terpanjang_id == 15){
+            printf(" ");
+        }
+    }
+
+    printf("%c", 179);
+    if(terpanjang_pelanggan > 14){
+        for(int i = 0; i < (terpanjang_pelanggan - 14)/2 ; i++) {
+            printf(" ");
+        }
+    }
+    printf(" Nama Pelanggan ");
+    if(terpanjang_pelanggan > 14){
+        for(int i = 0; i < (terpanjang_pelanggan - 14)/2 ; i++) {
+            printf(" ");
+        }
+        if((((terpanjang_pelanggan - 14)%2) == 1) || terpanjang_pelanggan == 15){
+            printf(" ");
+        }
+    }
+    
+    printf("%c", 179);
+    if(terpanjang_barang > 11){
+        for(int i = 0; i < (terpanjang_barang - 11)/2 ; i++) {
+            printf(" ");
+        }
+    }
+    printf(" Nama Barang ");
+    if(terpanjang_barang > 11){
+        for(int i = 0; i < (terpanjang_barang - 11)/2 ; i++) {
+            printf(" ");
+        }
+        if((((terpanjang_barang - 11)%2) == 1) || terpanjang_barang == 12){
+            printf(" ");
+        }
+    }
+    
+    printf("%c", 179);
+    if(terpanjang_waktu > 5){
+        for(int i = 0; i < (terpanjang_waktu - 5)/2 ; i++) {
+            printf(" ");
+        }
+    }
+    printf(" Waktu ");
+    if(terpanjang_waktu > 5){
+        for(int i = 0; i < (terpanjang_waktu - 5)/2 ; i++) {
+            printf(" ");
+        }
+        if((((terpanjang_waktu - 5)%2) == 1) || terpanjang_waktu == 6){
+            printf(" ");
+        }
+    }
+    
+    printf("%c", 179);
+    if(terpanjang_tanggal > 7){
+        for(int i = 0; i < (terpanjang_tanggal - 7)/2 ; i++) {
+            printf(" ");
+        }
+    }
+    printf(" Tanggal ");
+    if(terpanjang_tanggal > 7){
+        for(int i = 0; i < (terpanjang_tanggal - 7)/2 ; i++) {
+            printf(" ");
+        }
+        if((((terpanjang_tanggal - 7)%2) == 1) || terpanjang_tanggal == 8){
+            printf(" ");
+        }
+    }
+    printf("%c\n", 179);
+
+    //baris3
+    printf("%c", 195);
+    if(terpanjang_id <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_id + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 197);
+    if(terpanjang_pelanggan <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_pelanggan + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 197);
+    if(terpanjang_barang <= 11){
+        for(int i = 0; i < 11 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_barang + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 197);
+    if(terpanjang_waktu <= 5){
+        for(int i = 0; i < 5 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_waktu + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 197);
+    if(terpanjang_tanggal <= 7){
+        for(int i = 0; i < 7 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_tanggal + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+
+    printf("%c\n", 180);
+
+    //isi
+    for(int i = 0; i <s; i++){
+        printf("%c", 179);
+        printf(" %s ", listJoin[i].id_transaksi); 
+        if(terpanjang_id > 14){
+            for(int j = 0; j < terpanjang_id - cwlen(listJoin[i].id_transaksi); j++){
+                printf(" ");
+            }
+        } else{
+            for(int j = 0; j < 14 - cwlen(listJoin[i].id_transaksi); j++){
+                printf(" ");
+            }
+        }
+        printf("%c", 179);
+        printf(" %s ", listJoin[i].id_pelanggan);
+        if(terpanjang_pelanggan > 14){
+            for(int j = 0; j < terpanjang_pelanggan - cwlen(listJoin[i].id_pelanggan); j++){
+                printf(" ");
+            }
+        } else{
+            for(int j = 0; j < 14 - cwlen(listJoin[i].id_pelanggan); j++){
+                printf(" ");
+            }
+        }
+        printf("%c", 179);
+        printf(" %s ", listJoin[i].id_barang);
+        if(terpanjang_barang > 11){
+            for(int j = 0; j < terpanjang_barang - cwlen(listJoin[i].id_barang); j++){
+                printf(" ");
+            }
+        } else{
+            for(int j = 0; j < 11 - cwlen(listJoin[i].id_barang); j++){
+                printf(" ");
+            }
+        }
+        printf("%c", 179);
+        printf(" %s ", listJoin[i].waktu_transaksi);
+        if(terpanjang_waktu > 5){
+            for(int j = 0; j < terpanjang_waktu - cwlen(listJoin[i].waktu_transaksi); j++){
+                printf(" ");
+            }
+        } else{
+            for(int j = 0; j < 5 - cwlen(listJoin[i].waktu_transaksi); j++){
+                printf(" ");
+            }
+        }
+        printf("%c", 179);
+        printf(" %s ", listJoin[i].tanggal_transaksi);
+        if(terpanjang_tanggal > 7){
+            for(int j = 0; j < terpanjang_tanggal - cwlen(listJoin[i].tanggal_transaksi); j++){
+                printf(" ");
+            }
+        } else{
+            for(int j = 0; j < 7 - cwlen(listJoin[i].tanggal_transaksi); j++){
+                printf(" ");
+            }
+        }
+        printf("%c\n", 179);
+    }
+
+    // //bawah 192 193 217
+    printf("%c", 192);
+    if(terpanjang_id <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_id + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 193);
+    if(terpanjang_pelanggan <= 14){
+        for(int i = 0; i < 14 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_pelanggan + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 193);
+    if(terpanjang_barang <= 11){
+        for(int i = 0; i < 11 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_barang + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 193);
+    if(terpanjang_waktu <= 5){
+        for(int i = 0; i < 5 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_waktu + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+    printf("%c", 193);
+    if(terpanjang_tanggal <= 7){
+        for(int i = 0; i < 7 + 2 ; i++) {
+            printf("%c", 196);
+        }
+    } else{
+        for(int i = 0; i < terpanjang_tanggal + 2 ; i++) {
+            printf("%c", 196);
+        }
+    }
+
+    printf("%c\n", 217);
 
 }
