@@ -93,11 +93,6 @@ int main(){
             
         }
 
-        if(strcmp(tape, "bang udah bang;") == 0){
-            tutup = 1;
-            printf("\nsystem ('exit')\n");
-        }
-
         //jika system belum berakhir (nilai 'tutup' masih bernilai nol)
         if(tutup == 0){
             // memulai mesin kata dan membaca pita
@@ -122,6 +117,20 @@ int main(){
             else if((strcmp(getcw(), "hapus") == 0) || (strcmp(getcw(), "HAPUS") == 0) ||(strcmp(getcw(), "Hapus") == 0)){
                 //jika masukan perintah 'hapus'
                hapus(tape, listBarang, listPelanggan, listTransaksi);
+            }
+            //jika perintah awal adalah "exit"
+            else if((strcmp(getcw(), "exit") == 0) || (strcmp(getcw(), "EXIT") == 0)){
+                //system akan tertutup / keluar (exit)
+                tutup = 1;
+                printf("\nsystem ('exit')\n");
+                printf("\nJangan lupa bahagia teman-teman!\n");
+            }
+            //jika perintah awal adalah "semangat"
+            else if((strcmp(getcw(), "semangat") == 0) || (strcmp(getcw(), "Semangat") == 0) || (strcmp(getcw(), "SEMANGAT") == 0) || (strcmp(getcw(), "semangat!") == 0)){
+                //system akan tertutup / keluar (exit)
+                tutup = 1;
+                printf("\nsystem ('exit')\n");
+                printf("\nJangan lupa bahagia teman-teman!\n");
             }
             //jika masukan lain
             else{

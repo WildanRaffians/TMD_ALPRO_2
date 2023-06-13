@@ -1981,7 +1981,7 @@ void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangga
                     if(found == 0 && q_tambah == 0){
                         //jika id tidak ditemukan dan q_tambah 0
                         //tampilkan error
-                        printf("<<error>> id pelanggan tidak ditemukan\n");
+                        printf("\n<<error>> id pelanggan tidak ditemukan\n");
                     } else if(found == 0 && q_tambah == 1){
                         //jika id tidak ditemukan tapi q_tambah 1
                         idx = temp_idx;//kembalikan index
@@ -2366,7 +2366,7 @@ void hapus(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangg
                 if(found == 0){
                     //jika id tidak ditemukan
                     //tampilkan error
-                    printf("<<error>> id pelanggan tidak ditemukan\n");
+                    printf("\n<<error>> id pelanggan tidak ditemukan\n");
                 } else{
                     //jika id ditemukan
                     /*
