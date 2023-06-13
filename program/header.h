@@ -4,6 +4,7 @@ Algoritma dan Pemrograman II untuk keberkahanNya maka saya tidak
 melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
 */
 
+//deklarasi library
 #include <stdio.h>
 #include <string.h>
 
@@ -36,6 +37,7 @@ void error4();
 // deklarasi variabel global
 extern int idx;          // index dari karakter terakhir pada kata
 extern int temp_idx;     // penampung sementara index dari karakter terakhir pada kata
+extern int temp_idx2;    // penampung sementara index dari karakter terakhir pada kata
 extern int wlen;         // panjang kata (word length)
 extern char cw[50];      // kata saat ini (current word)
 
@@ -66,7 +68,7 @@ void readFile_ListPelanggan(int *n, dataPelanggan source[], char filename[], int
 void readFile_ListTransaksi(int *n, dataTransaksi source[], char filename[], int lihat);
 
 
-//bagian menulis file
+//bagian menulis ke file
 void writeToFile_ListBarang(int n, dataBarang source[], char filename[]);
 void writeToFile_ListPelanggan(int n, dataPelanggan source[], char filename[]);
 void writeToFile_ListTransaksi(int n, dataTransaksi source[], char filename[]);
@@ -74,9 +76,9 @@ void writeToFile_ListTransaksi(int n, dataTransaksi source[], char filename[]);
 
 //bagian perintah query
 void lihat(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100], int q_lainnya);
-void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100], int q_ubah);
-void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100], int q_tambah);
-void hapus(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100]);
+void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100], int q_ubah, int q_lihat);
+void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100], int q_tambah, int q_lihat);
+void hapus(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100], int q_lihat);
 
 
 //bagian perintah query join

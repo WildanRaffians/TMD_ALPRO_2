@@ -24,7 +24,7 @@ int main(){
 
     //tampilan awal
     printf("\nSelamat Datang di DBMS UMKM Pakaian Raffians\n");
-    printf("Versi : 0.8 (beta)\n");
+    printf("Versi : 0.9 (beta)\n");
 
     //proses/system berlangsung selama 'tutup' bernilai nol
     while( tutup == 0){
@@ -33,12 +33,6 @@ int main(){
         for(int i=0; i<panjang_full; i++){
             tape[i] = '\0';
         }
-
-        //variabel index
-        int p = 0;//index data barang
-        int q = 0;//index data pelanggan
-        int r = 0;//index data transaksi
-
 
         baris = 0;          //baris diset nol setiap berulang
         panjang_full = 0;   //panjang tape diset nol setiap berulang
@@ -106,20 +100,20 @@ int main(){
             //jika masukan perintah 'tambah'
             else if((strcmp(getcw(), "tambah") == 0) || (strcmp(getcw(), "TAMBAH") == 0) ||(strcmp(getcw(), "Tambah") == 0)){
                 //jika masukan perintah 'tambah'                
-                tambah(tape, listBarang, listPelanggan, listTransaksi, 0);
+                tambah(tape, listBarang, listPelanggan, listTransaksi, 0, 0);
             }
             //jika masukan perintah 'ubah'
             else if((strcmp(getcw(), "ubah") == 0) || (strcmp(getcw(), "UBAH") == 0) ||(strcmp(getcw(), "Ubah") == 0)){
                 //jika masukan perintah 'ubah'                
-                ubah(tape, listBarang, listPelanggan, listTransaksi, 0);
+                ubah(tape, listBarang, listPelanggan, listTransaksi, 0, 0);
             }
             //jika masukan perintah 'hapus'
             else if((strcmp(getcw(), "hapus") == 0) || (strcmp(getcw(), "HAPUS") == 0) ||(strcmp(getcw(), "Hapus") == 0)){
                 //jika masukan perintah 'hapus'
-               hapus(tape, listBarang, listPelanggan, listTransaksi);
+               hapus(tape, listBarang, listPelanggan, listTransaksi, 0);
             }
             //jika perintah awal adalah "exit"
-            else if((strcmp(getcw(), "exit") == 0) || (strcmp(getcw(), "EXIT") == 0)){
+            else if((strcmp(getcw(), "exit") == 0) || (strcmp(getcw(), "EXIT") == 0) || (strcmp(getcw(), "Exit") == 0)){
                 //system akan tertutup / keluar (exit)
                 tutup = 1;
                 printf("\nsystem ('exit')\n");

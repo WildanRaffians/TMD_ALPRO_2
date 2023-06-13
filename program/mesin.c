@@ -8,13 +8,12 @@ melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
 
 int idx;
 int temp_idx;
+int temp_idx2;
 int wlen;
 char cw[50];
 dataTransaksi listJoin[100]; //penampung data join
 
-void test(){
-    printf("test\n");
-}
+//prosedur menampilkan error
 void error1(){
     printf("\n<<error>> Perintah tidak tersedia\n");
 }
@@ -1361,7 +1360,7 @@ void lihat(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangg
                 lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                 idx = temp_idx;//kembalikan nilai index
                 //akses prosedur tambah
-                tambah(tape, listBarang, listPelanggan, listTransaksi, 0);
+                tambah(tape, listBarang, listPelanggan, listTransaksi, 0, 0);
             }
             
         } else if((strcmp(getcw(), "ubah") == 0) || (strcmp(getcw(), "UBAH") == 0) ||(strcmp(getcw(), "Ubah") == 0)){
@@ -1376,7 +1375,7 @@ void lihat(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangg
                 lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                 idx = temp_idx;//kembalikan nilai index
                 //akses prosedur ubah
-                ubah(tape, listBarang, listPelanggan, listTransaksi, 0);
+                ubah(tape, listBarang, listPelanggan, listTransaksi, 0, 0);
             }
             
         } else if((strcmp(getcw(), "hapus") == 0) || (strcmp(getcw(), "HAPUS") == 0) ||(strcmp(getcw(), "Hapus") == 0)){
@@ -1391,7 +1390,7 @@ void lihat(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangg
                 lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                 idx = temp_idx;//kembalikan nilai index
                 //akses prosedur ubah
-                hapus(tape, listBarang, listPelanggan, listTransaksi);
+                hapus(tape, listBarang, listPelanggan, listTransaksi, 0);
             }
         } else{
             //jika tabel / perintah lainnya
@@ -1408,7 +1407,7 @@ void lihat(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangg
 
 
 //prosedur query tambah
-void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100], int q_ubah){
+void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100], int q_ubah, int q_lihat){
 
     int p = 0;      //index data barang
     int q = 0;      //index data pelanggan
@@ -1452,15 +1451,20 @@ void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelang
                     }
                     
                     //jika id_barang ditemukan
-                    if(found == 1 && q_ubah == 0){
+                    if(found == 1 && q_ubah == 0 && q_lihat == 0){
                         //maka berarti id tidak bisa ditambahkan juga q_ubah 0 (tidak memiliki perintah ubah sebelumnya)
                         //tampilkan error
-                        printf("<<error>> id barang sudah terdapat pada data barang\n");
+                        printf("\n<<error>> Kode barang sudah terdapat pada data barang\n");
                     } else if(found == 1 && q_ubah == 1){
                         //jika found 1 dan q_ubah 1
                         idx = temp_idx;//kembalikan nilai index
                         //pindah ke prosedur ubah
-                        ubah(tape, listBarang, listPelanggan, listTransaksi, 0);
+                        ubah(tape, listBarang, listPelanggan, listTransaksi, 0, 0);
+                    } else if(found == 1 && q_lihat == 1){
+                        //jika found 1 dan q_lihat 1
+                        printf("\n<<error>> Kode barang sudah terdapat pada data barang\n");
+                        idx = temp_idx2;//kembalikan nilai index
+                        lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                     } else{
                         //jika found 0
                         strcpy(listBarang[p].id_barang, getcw()); //masukan kata saat ini (nama_barang) ke dalam data
@@ -1559,12 +1563,17 @@ void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelang
                     if(found == 1 && q_ubah == 0){
                         //maka berarti id tidak bisa ditambahkan juga q_ubah 0 (tidak memiliki perintah ubah sebelumnya)
                         //tampilkan error
-                        printf("<<error>> id pelanggan sudah terdapat pada data pelanggan\n");
+                        printf("\n<<error>> Kode pelanggan sudah terdapat pada data pelanggan\n");
                     } else if(found == 1 && q_ubah == 1){
                         //jika found 1 dan q_ubah 1
                         idx = temp_idx;//kembalikan nilai index
                         //pindah ke prosedur ubah
-                        ubah(tape, listBarang, listPelanggan, listTransaksi, 0);
+                        ubah(tape, listBarang, listPelanggan, listTransaksi, 0, 0);
+                    } else if(found == 1 && q_lihat == 1){
+                        //jika found 1 dan q_lihat 1
+                        printf("\n<<error>> Kode pelanggan sudah terdapat pada data pelanggan\n");
+                        idx = temp_idx2;//kembalikan nilai index
+                        lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                     } else{
                         //jika found 0
                         strcpy(listPelanggan[q].id_pelanggan, getcw());
@@ -1661,13 +1670,18 @@ void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelang
                     if(found == 1 && q_ubah == 0){
                         //maka berarti id tidak bisa ditambahkan juga q_ubah 0 (tidak memiliki perintah ubah sebelumnya)
                         //tampilkan error
-                        printf("<<error>> id transaksi sudah terdapat pada data transaksi\n");
+                        printf("\n<<error>> Kode transaksi sudah terdapat pada data transaksi\n");
                     } else if(found == 1 && q_ubah == 1){
                         //jika found 1 dan q_ubah 1
                         idx = temp_idx;//kembalikan nilai index
                         //pindah ke prosedur ubah
-                        ubah(tape, listBarang, listPelanggan, listTransaksi, 0);
-                    } else{
+                        ubah(tape, listBarang, listPelanggan, listTransaksi, 0, 0);
+                    } else if(found == 1 && q_lihat == 1){
+                        //jika found 1 dan q_lihat 1
+                        printf("\n<<error>> Kode transaksi sudah terdapat pada data transaksi\n");
+                        idx = temp_idx2;//kembalikan nilai index
+                        lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
+                    }  else{
                         //jika found 0
                         strcpy(listTransaksi[r].id_transaksi, getcw());
 
@@ -1687,10 +1701,15 @@ void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelang
                             }
                         }
                         
-                        if(found == 0){
+                        if(found == 0 && q_lihat == 0){
                             //jika id tidak ditemukan
                             //tampilkan error
-                            printf("\n<<error>> id pelanggan tidak ditemukan\n");
+                            printf("\n<<error>> Kode pelanggan tidak ditemukan\n");
+                        } else if(found == 0 && q_lihat == 1){
+                            //jika found 1 dan q_lihat 1
+                            printf("\n<<error>> Kode pelanggan tidak ditemukan\n");
+                            idx = temp_idx2;//kembalikan nilai index
+                            lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                         } else{
                             //cek eop
                             if(eop(tape) == 1){
@@ -1717,11 +1736,16 @@ void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelang
                                     }
                                 }
 
-                                if(found == 0){
+                                if(found == 0 && q_lihat == 0){
                                     //jika id tidak ditemukan
                                     //tampilkan error
-                                    printf("\n<<error>> id barang tidak ditemukan\n");
-                                } else {
+                                    printf("\n<<error>> Kode barang tidak ditemukan\n");
+                                } else if(found == 0 && q_lihat == 1){
+                                    //jika found 1 dan q_lihat 1
+                                    printf("\n<<error>> Kode barang tidak ditemukan\n");
+                                    idx = temp_idx2;//kembalikan nilai index
+                                    lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
+                                }else {
                                     /*
                                         cek apakah eop nol
                                         atau eop 1 dan tidak ada kata-kata lain setelahnya
@@ -1810,11 +1834,12 @@ void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelang
             //jika perintah ubah
             temp_idx = idx;//tampung index
             //panggil kembali prosedur tambah dengan q_ubah = 1
-            tambah(tape, listBarang, listPelanggan, listTransaksi, 1);
+            tambah(tape, listBarang, listPelanggan, listTransaksi, 1, 0);
         } else if((strcmp(getcw(), "lihat") == 0) || (strcmp(getcw(), "LIHAT") == 0) ||(strcmp(getcw(), "Lihat") == 0)){
             //jika perintah lihat
-            //panggil kembali prosedur tambah
-            tambah(tape, listBarang, listPelanggan, listTransaksi, 0);
+            temp_idx2 = idx;//tampung index
+            //panggil kembali prosedur tambah dengan q_lihat = 1
+            tambah(tape, listBarang, listPelanggan, listTransaksi, 0, 1);
         } else if((strcmp(getcw(), "hapus") == 0) || (strcmp(getcw(), "HAPUS") == 0) ||(strcmp(getcw(), "Hapus") == 0)){
             //jika perintah hapus
             //tampilkan error
@@ -1833,7 +1858,7 @@ void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelang
 
 
 //prosedur query ubah
-void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100], int q_tambah){
+void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100], int q_tambah, int q_lihat){
     int p = 0, q = 0, r = 0;   //p sebagai index data barang, q sebagai index data pelanggan, r sebagai index data transaksi
     int take = 0;       //penampung index yang akan diubah
     int found = 0;      //indikator ditemukannya id
@@ -1876,15 +1901,20 @@ void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangga
                         }
                     }
 
-                    if(found == 0 && q_tambah == 0){
+                    if(found == 0 && q_tambah == 0 && q_lihat == 0){
                         //jika id tidak ditemukan dan q_tambah 0
                         //tampilkan error
-                        printf("<<error>> id barang tidak ditemukan\n");
+                        printf("\n<<error>> Kode barang tidak ditemukan\n");
                     } else if(found == 0 && q_tambah == 1){
                         //jika tidak ditemukan tapi q_tambah 1
                         idx = temp_idx;//kembalikan index
                         //panggil prosedur tambah
-                        tambah(tape, listBarang, listPelanggan, listTransaksi, 0);
+                        tambah(tape, listBarang, listPelanggan, listTransaksi, 0, 0);
+                    } else if(found == 0 && q_lihat == 1){
+                        //jika found 1 dan q_lihat 1
+                        printf("\n<<error>> Kode barang tidak ditemukan\n");
+                        idx = temp_idx2;//kembalikan nilai index
+                        lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                     } else{
                         //jika id ditemukan
 
@@ -1978,15 +2008,20 @@ void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangga
                         }
                     }
 
-                    if(found == 0 && q_tambah == 0){
+                    if(found == 0 && q_tambah == 0 && q_lihat == 0){
                         //jika id tidak ditemukan dan q_tambah 0
                         //tampilkan error
-                        printf("\n<<error>> id pelanggan tidak ditemukan\n");
+                        printf("\n<<error>> Kode pelanggan tidak ditemukan\n");
                     } else if(found == 0 && q_tambah == 1){
                         //jika id tidak ditemukan tapi q_tambah 1
                         idx = temp_idx;//kembalikan index
                         //panggil prosedur tambah
-                        tambah(tape, listBarang, listPelanggan, listTransaksi, 0);
+                        tambah(tape, listBarang, listPelanggan, listTransaksi, 0, 0);
+                    } else if(found == 0 && q_lihat == 1){
+                        //jika found 1 dan q_lihat 1
+                        printf("\n<<error>> Kode pelanggan tidak ditemukan\n");
+                        idx = temp_idx2;//kembalikan nilai index
+                        lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                     } else{
                         //jika id ditemukan
 
@@ -2077,15 +2112,20 @@ void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangga
                         }
                     }
 
-                    if(found == 0 && q_tambah == 0){
+                    if(found == 0 && q_tambah == 0 && q_lihat == 0){
                         //jika id tidak ditemukan dan q_tambah 0
                         //tampilkan error
-                        printf("<<error>> id transaksi tidak ditemukan\n");
+                        printf("\n<<error>> Kode transaksi tidak ditemukan\n");
                     } else if(found == 0 && q_tambah == 1){
                         //jika id tidak ditemukan tapi q_tambah 1
                         idx = temp_idx;//kembalikan index
                         //panggil prosedur tambah
-                        tambah(tape, listBarang, listPelanggan, listTransaksi, 0);
+                        tambah(tape, listBarang, listPelanggan, listTransaksi, 0, 0);
+                    } else if(found == 0 && q_lihat == 1){
+                        //jika found 1 dan q_lihat 1
+                        printf("\n<<error>> Kode transaksi tidak ditemukan\n");
+                        idx = temp_idx2;//kembalikan nilai index
+                        lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                     } else{
                         //jika id ditemukan
 
@@ -2111,10 +2151,15 @@ void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangga
                                 }
                             }
                             
-                            if(found == 0){
+                            if(found == 0 && q_lihat == 0){
                                 //jika id tidak ditemukan
                                 //tampilkan error
-                                printf("\n<<error>> id pelanggan tidak ditemukan\n");
+                                printf("\n<<error>> Kode pelanggan tidak ditemukan\n");
+                            } else if(found == 0 && q_lihat == 1){
+                                //jika found 0 dan q_lihat 1
+                                printf("\n<<error>> Kode pelanggan tidak ditemukan\n");
+                                idx = temp_idx2;//kembalikan nilai index
+                                lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                             } else{
                                 //jika id ditemukan
                                 //ubah data id_pelanggan
@@ -2137,10 +2182,15 @@ void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangga
                                     }
                                 }
 
-                                if(found == 0){
+                                if(found == 0 && q_lihat == 0){
                                     //jika id tidak ditemukan
                                     //tampilkan error
-                                    printf("\n<<error>> id barang tidak ditemukan\n");
+                                    printf("\n<<error>> Kode barang tidak ditemukan\n");
+                                } else if(found == 0 && q_lihat == 1){
+                                    //jika found 0 dan q_lihat 1
+                                    printf("\n<<error>> Kode Barang tidak ditemukan\n");
+                                    idx = temp_idx2;//kembalikan nilai index
+                                    lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                                 } else {
                                     /*
                                         cek apakah eop nol
@@ -2199,13 +2249,14 @@ void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangga
 
         } else if((strcmp(getcw(), "lihat") == 0) || (strcmp(getcw(), "LIHAT") == 0) ||(strcmp(getcw(), "Lihat") == 0)){
             //jika perintah lihat
+            temp_idx2 = idx;//tampung index
             //panggil kembali prosedur ubah
-            ubah(tape, listBarang, listPelanggan, listTransaksi, 0);
+            ubah(tape, listBarang, listPelanggan, listTransaksi, 0, 1);
         } else if((strcmp(getcw(), "tambah") == 0) || (strcmp(getcw(), "TAMBAH") == 0) ||(strcmp(getcw(), "Tambah") == 0)){
             //jika perintah tambah
             temp_idx = idx;//tampung index
             //panggil prosedur ubah dengan q_tambah 1
-            ubah(tape, listBarang, listPelanggan, listTransaksi, 1);
+            ubah(tape, listBarang, listPelanggan, listTransaksi, 1, 0);
         } else if((strcmp(getcw(), "hapus") == 0) || (strcmp(getcw(), "HAPUS") == 0) ||(strcmp(getcw(), "Hapus") == 0)){
             //jika perintah hapus
             //tampilkan error
@@ -2224,7 +2275,7 @@ void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangga
 
 
 //prosedur query hapus
-void hapus(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100]){
+void hapus(char tape[500], dataBarang listBarang[100], dataPelanggan listPelanggan[100], dataTransaksi listTransaksi[100], int q_lihat){
     int p = 0, q = 0, r = 0;   //p sebagai index data barang, q sebagai index data pelanggan, r sebagai index data transaksi
     int take = 0;       //penampung index yang akan dihapus
     int found = 0;      //indikator ditemukannya id
@@ -2259,10 +2310,15 @@ void hapus(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangg
                     }
                 }
 
-                if(found == 0){
+                if(found == 0 && q_lihat == 0){
                     //jika id tidak ditemukan
                     //tampilkan error
-                    printf("<<error>> id barang tidak ditemukan\n");
+                    printf("\n<<error>> Kode barang tidak ditemukan\n");
+                } else if(found == 0 && q_lihat == 1){
+                    //jika found 1 dan q_lihat 1
+                    printf("\n<<error>> Kode barang tidak ditemukan\n");
+                    idx = temp_idx;//kembalikan nilai index
+                    lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                 } else{
                     //jika id ditemukan
                     /*
@@ -2363,10 +2419,15 @@ void hapus(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangg
                     }
                 }
 
-                if(found == 0){
+                if(found == 0 && q_lihat == 0){
                     //jika id tidak ditemukan
                     //tampilkan error
-                    printf("\n<<error>> id pelanggan tidak ditemukan\n");
+                    printf("\n<<error>> Kode pelanggan tidak ditemukan\n");
+                } else if(found == 0 && q_lihat == 1){
+                    //jika found 1 dan q_lihat 1
+                    printf("\n<<error>> Kode pelanggan tidak ditemukan\n");
+                    idx = temp_idx;//kembalikan nilai index
+                    lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                 } else{
                     //jika id ditemukan
                     /*
@@ -2464,10 +2525,15 @@ void hapus(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangg
                     }
                 }
 
-                if(found == 0){
+                if(found == 0 && q_lihat == 0){
                     //jika id tidak ditemukan
                     //tampilkan error
-                    printf("<<error>> id transaksi tidak ditemukan\n");
+                    printf("\n<<error>> Kode transaksi tidak ditemukan\n");
+                } else if(found == 0 && q_lihat == 1){
+                    //jika found 1 dan q_lihat 1
+                    printf("\n<<error>> Kode transaksi tidak ditemukan\n");
+                    idx = temp_idx;//kembalikan nilai index
+                    lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                 } else{
                     //jika id ditemukan
                     /*
@@ -2558,8 +2624,9 @@ void hapus(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangg
             }
         } else if((strcmp(getcw(), "lihat") == 0) || (strcmp(getcw(), "LIHAT") == 0) ||(strcmp(getcw(), "Lihat") == 0)){
                //jika perintah lihat
+               temp_idx = idx;//menampung index
                //panggil kembali prosedur hapus
-               hapus(tape, listBarang, listPelanggan, listTransaksi);
+               hapus(tape, listBarang, listPelanggan, listTransaksi, 1);
         } else{
             //jika perintah lain
             //tampilkan error
