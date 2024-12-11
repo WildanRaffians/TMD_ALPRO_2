@@ -14,7 +14,7 @@ Terdapat 3 Data/Tabel
 Terdapat 3 File
 <li>Header -> Untuk mendeklarasikan struktur, tipe data dan fungsi yang ada</li>
 <li>Mesin -> Berisi implementasi fungsi-fungsi yang dideklarasikan di dalam file header</li>
-<li>Untuk mengatur alur program DBMS dengan dan memanggil fungsi-fungsi yang diperlukan dari file mesin</li>
+<li>Untuk mengatur alur program DBMS dengan memanggil fungsi-fungsi yang diperlukan dari file mesin</li>
 <br>
 <h2>Cara Menjalankan</h2>
 <li>Download repo</li>
