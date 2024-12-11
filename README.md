@@ -27,11 +27,13 @@ Terdapat 3 File
 <li>tambah (nama tabel) (data baru) ; -> Perintah untuk menambah data baru (contoh : tambah barang B020 Sarung_Tinju;)</li>
 <li>ubah (nama tabel) (kode data) (data baru) ; -> Perintah untuk Mengubah data (contoh : ubah barang B020 Sarung_Tinju_Merah;)</li>
 <li>hapus (nama tabel) (kode data) ; -> Perintah untuk menghapus data (contoh : hapus barang B020;) </li>
+<br>
 Bisa juga melakukan 2 perintah sekaligus
 <li>lihat ubah -> melihat data sebelum diubah lalu mengubah data. Lanjutkan query seperti query ubah sebelumnya</li>
 <li>lihat tambah -> melihat data sebelum ditambah lalu menambah data. Lanjutkan query seperti query tambah sebelumnya</li>
 <li>lihat hapus -> melihat data sebelum dihapus lalu menghapus data. Lanjutkan query seperti query hapus sebelumnya</li>
 <li>ubah tambah -> Lanjutkan seperti query ubah/tambah. Jika kode barang tidak ada pada tabel maka akan menjalankan perintah tambah, jika kode barang sudah ada pada tabel maka akan mengubah data</li>
+<br>
 Bisa melakukan perintah join dengan menyebutkan table mana saja yang akan di join:
 <li>lihat barang transaksi; -> Akan menampilkan data transaksi tetapi pada kolom kode barang akan menampilkan nama barang</li>
 <li>lihat pelanggan transaski</li>
