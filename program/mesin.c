@@ -145,7 +145,7 @@ void readFile_ListBarang(int *n, dataBarang source[], char filename[], int lihat
                                                 source[*n].id_barang,
                                                 source[*n].nama_barang);
         }
-    }
+    } 
 
     //jika nilai lihat = 1, maka data barang ditampilkan
     if(lihat == 1){
@@ -1560,7 +1560,7 @@ void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelang
                     }
 
                     //jika id_pelanggan ditemukan
-                    if(found == 1 && q_ubah == 0){
+                    if(found == 1 && q_ubah == 0 && q_lihat == 0){
                         //maka berarti id tidak bisa ditambahkan juga q_ubah 0 (tidak memiliki perintah ubah sebelumnya)
                         //tampilkan error
                         printf("\n<<error>> Kode pelanggan sudah terdapat pada data pelanggan\n");
@@ -1667,7 +1667,7 @@ void tambah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelang
                     }
 
                     //jika id_transaksi ditemukan
-                    if(found == 1 && q_ubah == 0){
+                    if(found == 1 && q_ubah == 0 && q_lihat == 0){
                         //maka berarti id tidak bisa ditambahkan juga q_ubah 0 (tidak memiliki perintah ubah sebelumnya)
                         //tampilkan error
                         printf("\n<<error>> Kode transaksi sudah terdapat pada data transaksi\n");
@@ -2103,7 +2103,7 @@ void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangga
                 } else{
                     //jika eop 0
 
-                    //cari id_pelanggan
+                    //cari id_transaksi
                     for(int i = 0; i<r; i++){
                         if(strcmp(getcw(), listTransaksi[i].id_transaksi)== 0){
                             take = i;
@@ -2128,6 +2128,8 @@ void ubah(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangga
                         lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                     } else{
                         //jika id ditemukan
+
+                        // Ubah transaksi T001 P001 B001
 
                         inc(tape);//majukan pita
 
@@ -2320,75 +2322,88 @@ void hapus(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangg
                     idx = temp_idx;//kembalikan nilai index
                     lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                 } else{
-                    //jika id ditemukan
-                    /*
-                        cek apakah eop nol
-                        atau eop 1 dan tidak ada kata-kata lain setelahnya
-                    */
-                    if((eop(tape) == 0) || ((eop(tape) == 1) && (strcmp(getcw(), "00") < 0))){
-                        //jika iya
-                        //cek eop
-                        if((eop(tape) == 0)){
-                            //jika eop nol
-                            inc(tape);//majukan pita
+                    //cek apakah id barang terdapat di data transaksi sebagai foreign key
+                    found = 0;
+                    readFile_ListTransaksi(&r, listTransaksi, "../data/transaksi.dat", 0);
+                    for(int i = 0; i<r; i++){
+                        if(strcmp(getcw(), listTransaksi[i].id_barang)== 0){
+                            found = 1;
+                            i = r;
+                        }
+                    }
+                    if(found== 1){
+                        printf("\n<<error>> id barang merupakan foreign key pada data transaksi\n");
+                    } else{
+                        //jika id ditemukan
+                        /*
+                            cek apakah eop nol
+                            atau eop 1 dan tidak ada kata-kata lain setelahnya
+                        */
+                        if((eop(tape) == 0) || ((eop(tape) == 1) && (strcmp(getcw(), "00") < 0))){
+                            //jika iya
+                            //cek eop
+                            if((eop(tape) == 0)){
+                                //jika eop nol
+                                inc(tape);//majukan pita
 
-                            //cek apakah eop 1 dan tidak ada kata-kata lain 
-                            if((eop(tape) == 1 && (strcmp(getcw(), "00") < 0))){
+                                //cek apakah eop 1 dan tidak ada kata-kata lain 
+                                if((eop(tape) == 1 && (strcmp(getcw(), "00") < 0))){
 
-                                //jika iya
-                                //hapus data
+                                    //jika iya
+                                    //hapus data
 
-                                strcpy(listBarang[take].id_barang, "\0");
-                                strcpy(listBarang[take].nama_barang, "\0");
+                                    strcpy(listBarang[take].id_barang, "\0");
+                                    strcpy(listBarang[take].nama_barang, "\0");
 
-                                for(int i = take; i<p; i++){
-                                    strcpy(listBarang[i].id_barang, listBarang[i+1].id_barang);
-                                    strcpy(listBarang[i].nama_barang, listBarang[i+1].nama_barang);
+                                    for(int i = take; i<p; i++){
+                                        strcpy(listBarang[i].id_barang, listBarang[i+1].id_barang);
+                                        strcpy(listBarang[i].nama_barang, listBarang[i+1].nama_barang);
+                                    }
+                                    
+                                    p-=1;
+                                    strcpy(listBarang[p].id_barang, "\0");
+                                    strcpy(listBarang[p].nama_barang, "\0");
+
+                                    writeToFile_ListBarang(p, listBarang, "../data/barang.dat");
+                                    printf("\n<<Yeeayy data telah dihapus>>\n\n");
+
+                                    p=0;
+                                    printf("Data barang terbaru\n");
+                                    readFile_ListBarang(&p, listBarang, "../data/barang.dat", 1);
+
                                 }
-                                
-                                p-=1;
-                                strcpy(listBarang[p].id_barang, "\0");
-                                strcpy(listBarang[p].nama_barang, "\0");
-
-                                writeToFile_ListBarang(p, listBarang, "../data/barang.dat");
-                                printf("\n<<Yeeayy data telah dihapus>>\n\n");
-
-                                p=0;
-                                printf("Data barang terbaru\n");
-                                readFile_ListBarang(&p, listBarang, "../data/barang.dat", 1);
-
-                            }
-                            else{
-                                //jika tidak
+                                else{
+                                    //jika tidak
+                                    //tampilkan error
+                                    error4();
+                                }
+                            } else{
+                                //jika eop tidak nol
                                 //tampilkan error
-                                error4();
+                                error3();
                             }
-                        } else{
-                            //jika eop tidak nol
-                            //tampilkan error
-                            error3();
+                        } else if((eop(tape) == 1) && (strcmp(getcw(), "00") > 0)){
+                            //jika eop 1 juga terdapat kata tidak kosong
+                            //hapus kata
+                            strcpy(listBarang[take].id_barang, "\0");
+                            strcpy(listBarang[take].nama_barang, "\0");
+
+                            for(int i = take; i<p; i++){
+                                strcpy(listBarang[i].id_barang, listBarang[i+1].id_barang);
+                                strcpy(listBarang[i].nama_barang, listBarang[i+1].nama_barang);
+                            }
+                            
+                            p-=1;
+                            strcpy(listBarang[p].id_barang, "\0");
+                            strcpy(listBarang[p].nama_barang, "\0");
+
+                            writeToFile_ListBarang(p, listBarang, "../data/barang.dat");
+                            printf("\n<<Yeeayy data telah dihapus>>\n\n");
+
+                            p=0;
+                            printf("Data barang terbaru\n");
+                            readFile_ListBarang(&p, listBarang, "../data/barang.dat", 1);
                         }
-                    } else if((eop(tape) == 1) && (strcmp(getcw(), "00") > 0)){
-                        //jika eop 1 juga terdapat kata tidak kosong
-                        //hapus kata
-                        strcpy(listBarang[take].id_barang, "\0");
-                        strcpy(listBarang[take].nama_barang, "\0");
-
-                        for(int i = take; i<p; i++){
-                            strcpy(listBarang[i].id_barang, listBarang[i+1].id_barang);
-                            strcpy(listBarang[i].nama_barang, listBarang[i+1].nama_barang);
-                        }
-                        
-                        p-=1;
-                        strcpy(listBarang[p].id_barang, "\0");
-                        strcpy(listBarang[p].nama_barang, "\0");
-
-                        writeToFile_ListBarang(p, listBarang, "../data/barang.dat");
-                        printf("\n<<Yeeayy data telah dihapus>>\n\n");
-
-                        p=0;
-                        printf("Data barang terbaru\n");
-                        readFile_ListBarang(&p, listBarang, "../data/barang.dat", 1);
                     }
                 }
             }
@@ -2429,72 +2444,85 @@ void hapus(char tape[500], dataBarang listBarang[100], dataPelanggan listPelangg
                     idx = temp_idx;//kembalikan nilai index
                     lihat(tape, listBarang, listPelanggan, listTransaksi, 1);
                 } else{
-                    //jika id ditemukan
-                    /*
-                        cek apakah eop nol
-                        atau eop 1 dan tidak ada kata-kata lain setelahnya
-                    */
-                    if((eop(tape) == 0) || ((eop(tape) == 1) && (strcmp(getcw(), "00") < 0))){
-                        //jika iya
-                        //cek eop
-                        if((eop(tape) == 0)){
-                            //jika eop nol
-                            inc(tape);//majukan pita
+                    //cek apakah id pelanggan terdapat di data transaksi sebagai foreign key
+                    found = 0;
+                    readFile_ListTransaksi(&r, listTransaksi, "../data/transaksi.dat", 0);
+                    for(int i = 0; i<r; i++){
+                        if(strcmp(getcw(), listTransaksi[i].id_pelanggan) == 0){
+                            found = 1;
+                            i = r;
+                        }
+                    }
+                    if(found== 1){
+                        printf("\n<<error>> id pelanggan merupakan foreign key pada data transaksi\n");
+                    } else{
+                        //jika id ditemukan
+                        /*
+                            cek apakah eop nol
+                            atau eop 1 dan tidak ada kata-kata lain setelahnya
+                        */
+                        if((eop(tape) == 0) || ((eop(tape) == 1) && (strcmp(getcw(), "00") < 0))){
+                            //jika iya
+                            //cek eop
+                            if((eop(tape) == 0)){
+                                //jika eop nol
+                                inc(tape);//majukan pita
 
-                            //cek apakah eop 1 dan tidak ada kata-kata lain 
-                            if((eop(tape) == 1 && (strcmp(getcw(), "00") < 0))){
-                                //jika iya
-                                //hapus data
-                                strcpy(listPelanggan[take].id_pelanggan, "\0");
-                                strcpy(listPelanggan[take].nama_pelanggan, "\0");
+                                //cek apakah eop 1 dan tidak ada kata-kata lain 
+                                if((eop(tape) == 1 && (strcmp(getcw(), "00") < 0))){
+                                    //jika iya
+                                    //hapus data
+                                    strcpy(listPelanggan[take].id_pelanggan, "\0");
+                                    strcpy(listPelanggan[take].nama_pelanggan, "\0");
+                                        
+                                    for(int i = take; i<q; i++){
+                                        strcpy(listPelanggan[i].id_pelanggan, listPelanggan[i+1].id_pelanggan);
+                                        strcpy(listPelanggan[i].nama_pelanggan, listPelanggan[i+1].nama_pelanggan);
+                                    }
                                     
-                                for(int i = take; i<q; i++){
-                                    strcpy(listPelanggan[i].id_pelanggan, listPelanggan[i+1].id_pelanggan);
-                                    strcpy(listPelanggan[i].nama_pelanggan, listPelanggan[i+1].nama_pelanggan);
+                                    q-=1;
+                                    strcpy(listPelanggan[q].id_pelanggan, "\0");
+                                    strcpy(listPelanggan[q].nama_pelanggan, "\0");
+
+                                    writeToFile_ListPelanggan(q, listPelanggan, "../data/pelanggan.dat");
+                                    printf("\n<<Yeeayy data telah dihapus>>\n\n");
+
+                                    q=0;
+                                    printf("Data pelanggan terbaru\n");
+                                    readFile_ListPelanggan(&q, listPelanggan, "../data/pelanggan.dat", 1);
                                 }
-                                
-                                q-=1;
-                                strcpy(listPelanggan[q].id_pelanggan, "\0");
-                                strcpy(listPelanggan[q].nama_pelanggan, "\0");
-
-                                writeToFile_ListPelanggan(q, listPelanggan, "../data/pelanggan.dat");
-                                printf("\n<<Yeeayy data telah dihapus>>\n\n");
-
-                                q=0;
-                                printf("Data pelanggan terbaru\n");
-                                readFile_ListPelanggan(&q, listPelanggan, "../data/pelanggan.dat", 1);
-                            }
-                            else{
-                                //jika tidak
+                                else{
+                                    //jika tidak
+                                    //tampilkan error
+                                    error4();
+                                }
+                            } else{
+                                //jika eop tidak nol
                                 //tampilkan error
-                                error4();
+                                error3();
                             }
-                        } else{
-                            //jika eop tidak nol
-                            //tampilkan error
-                            error3();
-                        }
-                    } else if((eop(tape) == 1) && (strcmp(getcw(), "00") > 0)){
-                        //jika eop 1 juga terdapat kata tidak kosong
-                        //hapus kata
-                        strcpy(listPelanggan[take].id_pelanggan, "\0");
-                        strcpy(listPelanggan[take].nama_pelanggan, "\0");
+                        } else if((eop(tape) == 1) && (strcmp(getcw(), "00") > 0)){
+                            //jika eop 1 juga terdapat kata tidak kosong
+                            //hapus kata
+                            strcpy(listPelanggan[take].id_pelanggan, "\0");
+                            strcpy(listPelanggan[take].nama_pelanggan, "\0");
+                                
+                            for(int i = take; i<q; i++){
+                                strcpy(listPelanggan[i].id_pelanggan, listPelanggan[i+1].id_pelanggan);
+                                strcpy(listPelanggan[i].nama_pelanggan, listPelanggan[i+1].nama_pelanggan);
+                            }
                             
-                        for(int i = take; i<q; i++){
-                            strcpy(listPelanggan[i].id_pelanggan, listPelanggan[i+1].id_pelanggan);
-                            strcpy(listPelanggan[i].nama_pelanggan, listPelanggan[i+1].nama_pelanggan);
+                            q-=1;
+                            strcpy(listPelanggan[q].id_pelanggan, "\0");
+                            strcpy(listPelanggan[q].nama_pelanggan, "\0");
+
+                            writeToFile_ListPelanggan(q, listPelanggan, "../data/pelanggan.dat");
+                            printf("\n<<Yeeayy data telah dihapus>>\n\n");
+
+                            q=0;
+                            printf("Data pelanggan terbaru\n");
+                            readFile_ListPelanggan(&q, listPelanggan, "../data/pelanggan.dat", 1);
                         }
-                        
-                        q-=1;
-                        strcpy(listPelanggan[q].id_pelanggan, "\0");
-                        strcpy(listPelanggan[q].nama_pelanggan, "\0");
-
-                        writeToFile_ListPelanggan(q, listPelanggan, "../data/pelanggan.dat");
-                        printf("\n<<Yeeayy data telah dihapus>>\n\n");
-
-                        q=0;
-                        printf("Data pelanggan terbaru\n");
-                        readFile_ListPelanggan(&q, listPelanggan, "../data/pelanggan.dat", 1);
                     }
                 }
             }

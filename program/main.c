@@ -24,7 +24,7 @@ int main(){
 
     //tampilan awal
     printf("\nSelamat Datang di DBMS UMKM Pakaian Raffians\n");
-    printf("Versi : 0.9 (beta)\n");
+    printf("Versi : 1.0 (full version)\n");
 
     //proses/system berlangsung selama 'tutup' bernilai nol
     while( tutup == 0){
